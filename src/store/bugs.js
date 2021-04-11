@@ -10,7 +10,7 @@ import {
 // current();
 // Actions
 // normal export
-export const bugAdded = createAction("bugAdded");
+export const bugAdded = createAction("bugAdded"); //contains type and payload
 export const bugResolved = createAction("bugResolved");
 export const bugRemoved = createAction("bugRemoved");
 
@@ -22,7 +22,7 @@ let lastId = 0;
 // take initial state and action and return new state
 
 export default createReducer([], {
-  bugAdded: (state, action) => {
+  [bugAdded.type]: (state, action) => {
     state.push({
       id: ++lastId,
       description: action.payload.description,
@@ -31,7 +31,7 @@ export default createReducer([], {
     // console.log({ ...vatriable });
   },
 
-  bugResolved: (state, action) => {
+  [bugResolved.type]: (state, action) => {
     // console.log(JSON.stringify(state, undefined, 2));
 
     const index = state.findIndex((bug) => bug.id === action.payload.id);
@@ -40,7 +40,7 @@ export default createReducer([], {
     // console.log(JSON.stringify(state, undefined, 2));
   },
 
-  bugRemoved: (state, action) => {
+  [bugRemoved.type]: (state, action) => {
     console.log(JSON.stringify(state, undefined, 2));
 
     const index = state.findIndex((bug) => bug.id === action.payload.id);
