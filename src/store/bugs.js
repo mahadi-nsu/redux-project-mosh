@@ -9,7 +9,6 @@ const slice = createSlice({
   reducers: {
     bugAdded: (state, action) => {
       // console.log(JSON.stringify(state, undefined, 2));
-
       state.push({
         id: ++lastId,
         description: action.payload.description,
