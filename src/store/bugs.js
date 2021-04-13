@@ -9,12 +9,19 @@ const slice = createSlice({
   reducers: {
     bugAdded: (state, action) => {
       // console.log(JSON.stringify(state, undefined, 2));
+      console.log(action);
       state.push({
         id: ++lastId,
         description: action.payload.description,
         resolved: false,
       });
       // console.log({ ...vatriable });
+    },
+
+    bugAssignedToUser: (state, action) => {
+      const { userId, bugId } = action.payload;
+      const index = state.findIndex((bug) => bug.id === bugId);
+      state[index].userId = userId;
     },
 
     bugResolved: (state, action) => {
@@ -35,9 +42,15 @@ const slice = createSlice({
   },
 });
 
-export const { bugAdded, bugRemoved, bugResolved } = slice.actions;
+export const {
+  bugAdded,
+  bugRemoved,
+  bugResolved,
+  bugAssignedToUser,
+} = slice.actions;
 export default slice.reducer;
 
+//selector function
 export const getUnresolvedBugs = (bugsState) => {
   return bugsState.entities.bugs.filter((bug) => !bug.resolved);
 };
